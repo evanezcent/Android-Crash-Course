@@ -34,6 +34,11 @@ class HomeActivity: AppCompatActivity(), HomeView {
         Log.e(HomeActivity::class.java.simpleName,"${err.printStackTrace()}")
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.onDetach()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home)
