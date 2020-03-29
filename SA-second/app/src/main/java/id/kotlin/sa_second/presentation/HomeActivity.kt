@@ -1,14 +1,20 @@
-package id.kotlin.sa_second
+package id.kotlin.sa_second.presentation
 
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
+import dagger.android.AndroidInjection
+import id.kotlin.sa_second.R
 import id.kotlin.sa_second.data.Result
 import kotlinx.android.synthetic.main.home.*
+import javax.inject.Inject
 
-class HomeActivity: AppCompatActivity(), HomeView{
+class HomeActivity: AppCompatActivity(), HomeView {
+
+    @Inject
+    lateinit var presenter:HomePresenter
 
     override fun onShowLoading() {
         pb_home.visibility = View.VISIBLE
@@ -31,9 +37,8 @@ class HomeActivity: AppCompatActivity(), HomeView{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home)
+        AndroidInjection.inject(this)
 
-
-        val presenter = HomePresenter(this)
         presenter.getMovie()
     }
 }

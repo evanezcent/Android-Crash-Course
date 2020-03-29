@@ -1,17 +1,21 @@
-package id.kotlin.sa_second
+package id.kotlin.sa_second.presentation
 
+import id.kotlin.sa_second.di.module.ApiProvider
 import id.kotlin.sa_second.data.DataSource
 import id.kotlin.sa_second.data.Response
+import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 
-class HomePresenter(private val view: HomeView) {
+class HomePresenter(
+    private val view: HomeView,
+    private val datasource: DataSource
+) {
 
     fun getMovie(){
         view.onShowLoading()
 
-        val data = ApiProvider.provideHttpAdapter().create(DataSource::class.java)
-        data.getMovie().enqueue(object : Callback<Response>{
+        datasource.getMovie().enqueue(object : Callback<Response>{
             override fun onFailure(call: Call<Response>, t: Throwable) {
                 view.onHideLoading()
                 view.onFailure(t)

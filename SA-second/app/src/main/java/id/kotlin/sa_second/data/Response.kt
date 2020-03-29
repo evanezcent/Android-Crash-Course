@@ -1,4 +1,4 @@
-package id.kotlin.sa_second
+package id.kotlin.sa_second.data
 
 import com.google.gson.annotations.SerializedName
 
