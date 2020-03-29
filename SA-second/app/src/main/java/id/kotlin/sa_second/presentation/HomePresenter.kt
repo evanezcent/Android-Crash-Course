@@ -1,8 +1,9 @@
 package id.kotlin.sa_second
 
+import id.kotlin.sa_second.data.DataSource
+import id.kotlin.sa_second.data.Response
 import retrofit2.Call
 import retrofit2.Callback
-import retrofit2.create
 
 class HomePresenter(private val view: HomeView) {
 

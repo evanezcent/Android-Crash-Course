@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import id.kotlin.sa_second.data.Result
 
 class HomeAdapter(private val res : List<Result>): RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 

@@ -1,5 +1,7 @@
 package id.kotlin.sa_second
 
+import id.kotlin.sa_second.data.Result
+
 interface HomeView {
     fun onShowLoading()
     fun onHideLoading()
