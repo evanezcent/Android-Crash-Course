@@ -10,28 +10,36 @@ import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
 import retrofit2.Callback
 
-class HomeActivity: AppCompatActivity(){
+class HomeActivity: AppCompatActivity(), HomeView{
+    private lateinit var progressBar: ProgressBar
+    private lateinit var recyclerView: RecyclerView
+
+    override fun onShowLoading() {
+        progressBar.visibility = View.VISIBLE
+    }
+
+    override fun onHideLoading() {
+        progressBar.visibility = View.GONE
+        recyclerView.visibility = View.VISIBLE
+    }
+
+    override fun onResponse(res: List<Result>) {
+        recyclerView.addItemDecoration(DividerItemDecoration(this@HomeActivity, DividerItemDecoration.VERTICAL))
+        recyclerView.adapter = HomeAdapter(res)
+    }
+
+    override fun onFailure(err: Throwable) {
+        Log.e(HomeActivity::class.java.simpleName,"${err.printStackTrace()}")
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home)
 
-        val progressBar = findViewById<ProgressBar>(R.id.pb_home)
+        progressBar = findViewById(R.id.pb_home)
+        recyclerView = findViewById(R.id.rv_home)
 
-        val data = ApiProvider.provideHttpAdapter().create(DataSource::class.java)
-        data.getMovie().enqueue(object : Callback<Response>{
-
-            override fun onResponse(call: Call<Response>, response: retrofit2.Response<Response>) {
-                progressBar.visibility = View.GONE
-
-                val res = response.body()?.res
-                val itemAdapter = findViewById<RecyclerView>(R.id.rv_home)
-                itemAdapter.addItemDecoration(DividerItemDecoration(this@HomeActivity, DividerItemDecoration.VERTICAL))
-                itemAdapter.adapter = HomeAdapter(res ?: emptyList())
-            }
-
-            override fun onFailure(call: Call<Response>, t: Throwable) {
-                Log.e(HomeActivity::class.java.simpleName, "${t.printStackTrace()}")
-            }
-        })
+        val presenter = HomePresenter(this)
+        presenter.getMovie()
     }
 }
