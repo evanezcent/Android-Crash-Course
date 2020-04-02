@@ -4,46 +4,42 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import dagger.android.AndroidInjection
+import dagger.android.support.DaggerAppCompatActivity
 import id.kotlin.sa_mastering.R
 import id.kotlin.sa_mastering.data.Result
 import kotlinx.android.synthetic.main.home.*
 import javax.inject.Inject
 
-class HomeActivity: AppCompatActivity(), HomeView {
+class HomeActivity: DaggerAppCompatActivity(), HomeViewModelCallback {
 
     @Inject
-    lateinit var presenter:HomePresenter
+    lateinit var viewModel: HomeViewModel
 
-    override fun onShowLoading() {
-        pb_home.visibility = View.VISIBLE
-    }
+    private lateinit var binding: HomeAdapterViewModel
 
-    override fun onHideLoading() {
-        pb_home.visibility = View.GONE
-        rv_home.visibility = View.VISIBLE
-    }
-
-    override fun onResponse(res: List<Result>) {
-        rv_home.addItemDecoration(DividerItemDecoration(this@HomeActivity, DividerItemDecoration.VERTICAL))
-        rv_home.adapter = HomeAdapter(res)
-    }
-
-    override fun onFailure(err: Throwable) {
-        Log.e(HomeActivity::class.java.simpleName,"${err.printStackTrace()}")
-    }
 
     override fun onDestroy() {
         super.onDestroy()
-        presenter.onDetach()
+        viewModel.onDetach()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.home)
-        AndroidInjection.inject(this)
+        binding = DataBindingUtil.setContentView<ActivityHomeBinding>(
+            this,
+            R.layout.home)
+            .apply { viewModel = this@HomeActivity.viewModel }
+            .also { viewModel.getTheMovies() }
+    }
 
-        presenter.getMovie()
+    override fun onSuccess(res: List<Result>) {
+//        binding.rv_home.addI
+    }
+
+    override fun onFailed(err: Throwable) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
