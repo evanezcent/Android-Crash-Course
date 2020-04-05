@@ -5,15 +5,83 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".MainActivity"
+        android:orientation="vertical"
+        android:padding="10dp"
+>
 
     <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/tv-panjang"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/panjang"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
+
+    <EditText
+            android:id="@+id/et-panjang"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv-panjang"
+            android:inputType="numberDecimal"
+            android:lines="1"
+    />
+
+    <TextView
+            android:id="@+id/tv-lebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lebar"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et-panjang"/>
+
+    <EditText
+            android:id="@+id/et-lebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv-lebar"
+            android:inputType="numberDecimal"
+            android:lines="1"
+    />
+
+    <TextView
+            android:id="@+id/tv-tinggi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tinggi"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et-lebar"/>
+
+    <EditText
+            android:id="@+id/et-tinggi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv-tinggi"
+            android:inputType="numberDecimal"
+            android:lines="1"
+    />
+
+    <Button
+            android:id="@+id/btn-calculate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hitung"
+            app:layout_constraintTop_toBottomOf="@+id/et-tinggi"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorAccent"
+            android:textColor="@android:color/white"
+    />
+
+    <TextView
+            android:id="@+id/tv-result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/btn-calculate"
+            android:gravity="center"
+            android:text="@string/hasil"
+            android:textSize="23dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"
+    />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
