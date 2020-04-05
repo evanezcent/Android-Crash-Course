@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_main)
 
         val btnMoveActivity : Button = findViewById(R.id.btn_move_activity)
+        btnMoveActivity.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
