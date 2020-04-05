@@ -16,4 +16,12 @@
             android:text="@string/pindah_activity"
     />
 
+    <Button
+            android:id="@+id/btn_move_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:text="@string/pindah_dengan_data"
+    />
+
 </LinearLayout>
