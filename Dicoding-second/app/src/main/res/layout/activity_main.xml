@@ -24,4 +24,12 @@
             android:text="@string/pindah_dengan_data"
     />
 
+    <Button
+            android:id="@+id/btn_dial_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:text="@string/dial_number"
+    />
+
 </LinearLayout>

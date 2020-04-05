@@ -1,6 +1,7 @@
 package com.dicoding.picodiploma.dicoding_second
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -17,6 +18,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         val btnMoveData : Button = findViewById(R.id.btn_move_data)
         btnMoveData.setOnClickListener(this)
+
+        val btnDialNumber : Button = findViewById(R.id.btn_dial_number)
+        btnDialNumber.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
@@ -31,6 +35,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 movedDataIntent.putExtra(MovedActivityData.NAME, "Tama")
                 movedDataIntent.putExtra(MovedActivityData.AGE, 20)
                 startActivity(movedDataIntent)
+            }
+
+            R.id.btn_dial_number ->{
+                val phone = "081123456789"
+                val phoneIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phone"))
+                startActivity(phoneIntent)
             }
         }
     }

@@ -17,7 +17,7 @@ class MovedActivityData : AppCompatActivity() {
         val tvData : TextView = findViewById(R.id.tv_received_data)
 
         val name = intent.getStringExtra(NAME)
-        val age = intent.getIntExtra(AGE)
+        val age = intent.getIntExtra(AGE,0)
         val text = "Nama : $name \n Umur : $age"
         tvData.text = text
     }
