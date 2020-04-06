@@ -27,8 +27,7 @@
             />
 
             <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/TextContent.Small.White"
                     android:layout_gravity="bottom"
                     android:layout_marginLeft="15dp"
                     android:layout_marginBottom="15dp"
@@ -45,47 +44,32 @@
         </FrameLayout>
 
         <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/TextContent.Black"
                 android:textSize="35sp"
                 android:text="@string/rp_3_500_000"
                 android:layout_marginBottom="7dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
                 android:layout_marginTop="15dp"
                 android:textColor="@android:color/black"
         />
 
         <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
+                style="@style/TextContent.Subtitle"
                 android:text="@string/stock_tersisa_7"
                 android:layout_marginBottom="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
         />
 
         <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
+                style="@style/TextContent"
                 android:text="@string/content_text"
                 android:layout_marginBottom="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
                 android:lineSpacingMultiplier="1"
                 android:textColor="@android:color/black"
         />
 
         <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
+                style="@style/TextContent.Subtitle"
                 android:text="@string/spesifikasi"
                 android:layout_marginBottom="7dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
         />
 
         <TableLayout
@@ -101,20 +85,13 @@
                     android:layout_marginBottom="7dp"
             >
                 <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="15sp"
-                        android:layout_marginRight="15dp"
+                        style="@style/TextSpec.Field"
                         android:text="@string/display"
                 />
 
                 <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="15sp"
-                        android:layout_weight="1"
+                        style="@style/TextSpec.Value"
                         android:text="@string/content_specs_display"
-                        android:textColor="@android:color/black"
                 />
 
             </TableRow>
@@ -125,19 +102,12 @@
                     android:layout_marginBottom="7dp"
             >
                 <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="15sp"
-                        android:layout_marginRight="15dp"
+                        style="@style/TextSpec.Field"
                         android:text="@string/size"
                 />
                 <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="15sp"
-                        android:layout_weight="1"
+                        style="@style/TextSpec.Value"
                         android:text="@string/content_specs_size"
-                        android:textColor="@android:color/black"
                 />
             </TableRow>
 
@@ -147,31 +117,21 @@
                     android:layout_marginBottom="7dp"
             >
                 <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="15sp"
-                        android:layout_marginRight="15dp"
+                        style="@style/TextSpec.Field"
                         android:text="@string/battery"
                 />
 
                 <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="15sp"
-                        android:layout_weight="1"
+                        style="@style/TextSpec.Value"
                         android:text="@string/content_specs_battery"
-                        android:textColor="@android:color/black"/>
+                />
             </TableRow>
 
         </TableLayout>
 
         <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/TextContent.Subtitle"
                 android:text="@string/dijual_oleh"
-                android:textSize="12sp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
                 android:layout_marginBottom="7dp"
         />
 
@@ -193,16 +153,20 @@
             />
 
             <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/TextContent"
                     android:layout_toRightOf="@id/profile_image"
+                    android:layout_toEndOf="@id/profile_image"
                     android:text="@string/nama_penjual"
                     android:textColor="@android:color/black"
-                    android:layout_centerVertical="true"
             />
 
         </RelativeLayout>
 
-    </LinearLayout>
+        <Button
+                android:text="@string/beli"
+                style="@style/ButtonGeneral"
+        />
 
+    </LinearLayout>
+    
 </ScrollView>
