@@ -3,11 +3,40 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:id="@+id/activity_main"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+>
+    <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/mytoolbar"
+
+    >
+
+        <TextView
+                android:layout_width="330dp"
+                android:layout_height="wrap_content"
+                android:text="My Github"
+                android:gravity="center"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:id="@+id/tv_username"
+        />
+        <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/ci_profil"
+                android:src="@drawable/me"
+        />
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_repo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/home_view" />
+            tools:listitem="@layout/home_view"
+            android:layout_marginTop="60dp"
+    />
+
 </RelativeLayout>

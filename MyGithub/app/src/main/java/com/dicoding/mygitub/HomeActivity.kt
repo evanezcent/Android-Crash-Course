@@ -1,13 +1,14 @@
 package com.dicoding.mygitub
 
+import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import android.util.Log.d
+import android.view.View
+import android.widget.Button
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.mygitub.Api.ApiProvider
 import com.dicoding.mygitub.Model.Datasource
 import com.dicoding.mygitub.Model.Repo
@@ -16,11 +17,18 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeActivity : AppCompatActivity(){
+class HomeActivity : AppCompatActivity(), View.OnClickListener{
+    override fun onClick(p0: View?) {
+        val intent = Intent(this@HomeActivity, AboutActivity::class.java)
+        startActivity(intent)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_view)
+
+        val me : ImageView = findViewById(R.id.ci_profil)
+        me.setOnClickListener(this)
 
         val repo = ApiProvider.provideHttpAdapter().create(Datasource::class.java)
         repo.getRepo().enqueue(object : Callback<ArrayList<Repo>>{
@@ -32,9 +40,11 @@ class HomeActivity : AppCompatActivity(){
                 val repositories = response.body()!!
                 rv_repo.apply {
                     layoutManager = LinearLayoutManager(this@HomeActivity)
-                    adapter = CardAdapter(repositories ?: emptyList<Repo>())
+                    adapter = CardAdapter(repositories)
                 }
+
             }
         })
+
     }
 }
