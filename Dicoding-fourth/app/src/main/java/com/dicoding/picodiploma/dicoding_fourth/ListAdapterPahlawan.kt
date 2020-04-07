@@ -10,6 +10,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
 class ListAdapterPahlawan(private val listPahlawan: ArrayList<Pahlawan>) : RecyclerView.Adapter<ListAdapterPahlawan.ListViewHolder>(){
+
+    private lateinit var onItemClickCallback: OnItemClickCallback
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_row_hero, parent, false)
         return  ListViewHolder(view)
@@ -29,12 +32,23 @@ class ListAdapterPahlawan(private val listPahlawan: ArrayList<Pahlawan>) : Recyc
 
         holder.tvName.text = pahlawan.nama
         holder.tvDetail.text = pahlawan.detail
+        holder.itemView.setOnClickListener {
+            onItemClickCallback.onItemClicked(listPahlawan[holder.adapterPosition])
+        }
+    }
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
     }
 
     inner class ListViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         var tvName: TextView = itemView.findViewById(R.id.tv_name)
         var tvDetail: TextView = itemView.findViewById(R.id.tv_detail)
         var imgPhoto: ImageView = itemView.findViewById(R.id.img_item)
+    }
+
+    interface OnItemClickCallback {
+        fun onItemClicked(data: Pahlawan)
     }
 
 }

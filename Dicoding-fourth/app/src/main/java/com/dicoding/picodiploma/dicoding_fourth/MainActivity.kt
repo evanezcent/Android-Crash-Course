@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,12 +33,24 @@ class MainActivity : AppCompatActivity() {
         rvPahlawan.layoutManager = LinearLayoutManager(this)
         val listAdapterPahlawan = ListAdapterPahlawan(list)
         rvPahlawan.adapter = listAdapterPahlawan
+
+        listAdapterPahlawan.setOnItemClickCallback(object : ListAdapterPahlawan.OnItemClickCallback{
+            override fun onItemClicked(data: Pahlawan) {
+                showSelectedHero(data)
+            }
+        })
     }
 
     private fun showRecyclerGrid(){
         rvPahlawan.layoutManager = GridLayoutManager(this,2)
         val gridAdapterPahlawan = GridAdapterPahlawan(list)
         rvPahlawan.adapter = gridAdapterPahlawan
+
+        gridAdapterPahlawan.setOnItemClickCallback(object: ListAdapterPahlawan.OnItemClickCallback{
+            override fun onItemClicked(data: Pahlawan) {
+                showSelectedHero(data)
+            }
+        })
     }
 
     private fun showRecyclerCard(){
@@ -78,5 +91,8 @@ class MainActivity : AppCompatActivity() {
         if (supportActionBar != null) {
             (supportActionBar as androidx.appcompat.app.ActionBar).title = title
         }
+    }
+    private fun showSelectedHero(hero: Pahlawan) {
+        Toast.makeText(this, "Kamu memilih " + hero.nama, Toast.LENGTH_SHORT).show()
     }
 }
