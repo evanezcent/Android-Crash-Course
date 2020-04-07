@@ -6,5 +6,6 @@ import retrofit2.http.GET
 interface Datasource{
 
     @GET("/users/evanezcent/repos?public")
-    fun getRepo():Call<Response>
+    fun getRepo():Call<ArrayList<Repo>>
+    fun getAkun():Call<ArrayList<Akun>>
 }

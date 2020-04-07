@@ -1,10 +1,9 @@
 package com.dicoding.mygitub.Model
 
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
-data class Response(
-    @SerializedName("owner['avatar_url]")
-    val res : String,
+data class Repo(
 
     @SerializedName("description")
     val desc : String,
@@ -25,11 +24,17 @@ data class Response(
     val fork : Int,
 
     @SerializedName("id")
-    val id : String
+    val id : String,
+
+    @SerializedName("login")
+    val username: String,
+
+    @SerializedName("owner")
+    val owner : Akun
 
     )
 
-data class Result(
+data class Akun(
     @SerializedName("login")
     val username: String,
 

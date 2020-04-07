@@ -8,9 +8,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.dicoding.mygitub.Model.Response
+import com.dicoding.mygitub.Model.Akun
+import com.dicoding.mygitub.Model.Repo
 
-class CardAdapter(private val listRepo:ArrayList<Response>) : RecyclerView.Adapter<CardAdapter.CardHolder>(){
+class CardAdapter(
+    private val listRepo:List<Repo>
+) : RecyclerView.Adapter<CardAdapter.CardHolder>(){
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardHolder {
         val view : View = LayoutInflater.from(parent.context).inflate(R.layout.home_view, parent,false)
         return CardHolder(view)
@@ -24,7 +28,7 @@ class CardAdapter(private val listRepo:ArrayList<Response>) : RecyclerView.Adapt
         val repo = listRepo[position]
 
         Glide.with(holder.itemView.context)
-            .load(repo.res)
+            .load(repo.owner.fotoProfil)
             .apply(RequestOptions().override(150,150))
             .into(holder.avatar)
 
