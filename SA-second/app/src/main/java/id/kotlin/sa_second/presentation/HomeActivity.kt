@@ -1,46 +1,47 @@
 package id.kotlin.sa_second.presentation
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
-import dagger.android.AndroidInjection
 import dagger.android.support.DaggerAppCompatActivity
 import id.kotlin.sa_second.R
-import id.kotlin.sa_second.data.Result
-import id.kotlin.sa_second.databinding.HomeBinding
+import kotlinx.android.synthetic.main.home.*
 import javax.inject.Inject
 
-class HomeActivity: DaggerAppCompatActivity(), HomeViewModelCallback {
+class HomeActivity: DaggerAppCompatActivity() {
 
     @Inject
-    lateinit var viewModel:HomeViewModel
+    lateinit var viewModelFactory:ViewModelProvider.Factory
 
-    private lateinit var binding: HomeBinding
+    private val viewModel:HomeView by lazy {
+        ViewModelProviders
+            .of(this, viewModelFactory)
+            .get(HomeViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView<HomeBinding>(
-            this,
-            R.layout.home)
-            .apply { viewModel = this@HomeActivity.viewModel }
-            .also { viewModel.getMovies() }
+        setContentView(R.layout.home)
+
+        viewModel.states.observe(this, Observer { state ->
+            when(state){
+                is HomeViewState.Loading -> pb_home.visibility = View.VISIBLE
+                is HomeViewState.Success -> {
+                    pb_home.visibility = View.GONE
+                    rv_home.addItemDecoration(DividerItemDecoration(this@HomeActivity, DividerItemDecoration.VERTICAL))
+                    rv_home.adapter = HomeAdapter(state.response.res)
+                }
+                is HomeViewState.Error -> {
+                    pb_home.visibility = View.GONE
+                    Log.e(HomeActivity::class.java.simpleName, "${state.err.printStackTrace()}")
+                }
+            }
+        })
+        viewModel.getMovies()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        viewModel.onDetach()
-    }
-
-    override fun onError(err: Throwable) {
-        Log.e(HomeActivity::class.java.simpleName, "${err.printStackTrace()}")
-    }
-
-    override fun onSuccess(res: List<Result>) {
-        binding.rvHome.addItemDecoration(DividerItemDecoration(this@HomeActivity, DividerItemDecoration.VERTICAL))
-        binding.rvHome.adapter = HomeAdapter(res)
-    }
 }

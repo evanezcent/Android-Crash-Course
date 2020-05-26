@@ -1,42 +1,35 @@
 package id.kotlin.sa_second.presentation
 
-import android.view.View
-import androidx.databinding.BaseObservable
-import androidx.databinding.Bindable
-import androidx.databinding.library.baseAdapters.BR
-import id.kotlin.sa_second.data.DataSource
-import io.reactivex.android.schedulers.AndroidSchedulers
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.addTo
+import javax.inject.Inject
+import javax.sql.DataSource
+import androidx.lifecycle.MutableLiveData
 
-class HomeViewModel (
-    private val callback : HomeViewModelCallback,
-    private val datasource : DataSource
-):BaseObservable(), HomeView{
-    var loadingBar: Int = View.GONE
-        @Bindable get
 
-    private val disposavle: CompositeDisposable = CompositeDisposable()
+class HomeViewModel @Inject constructor (
+    private val datasource:id.kotlin.sa_second.data.DataSource
+):ViewModel(), HomeView{
 
-    override fun getMovies() {
-        loadingBar = View.VISIBLE
-        notifyPropertyChanged(BR.loadingBar)
+    private val disposavle = CompositeDisposable()
+    private val observer = MutableLiveData<HomeViewState>()
 
-        datasource.getMovie()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({response ->
-                loadingBar=View.GONE
-                notifyPropertyChanged(BR.loadingBar)
-                callback.onSuccess(response.res)
-            },{err ->
-                loadingBar = View.GONE
-                notifyPropertyChanged(BR.loadingBar)
-                callback.onError(err)
-            }).addTo(disposavle)
-    }
+    override val states: LiveData<HomeViewState>
+        get() = observer
 
-    override fun onDetach() {
+    override fun onCleared() {
+        super.onCleared()
         disposavle.clear()
     }
 
+    override fun getMovies() {
+        datasource.getMovie()
+            .map<HomeViewState>(HomeViewState::Success)
+            .onErrorReturn(HomeViewState::Error)
+            .toFlowable()
+            .startWith(HomeViewState.Loading)
+            .subscribe(observer::postValue)
+            .let(disposavle::add)
+    }
 }
