@@ -52,6 +52,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_home"
             android:paddingTop="?android:attr/actionBarSize"
+            tools:visibility="visible"
     />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

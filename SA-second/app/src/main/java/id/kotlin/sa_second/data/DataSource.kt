@@ -2,7 +2,6 @@ package id.kotlin.sa_second.data
 
 import id.kotlin.sa_second.BuildConfig
 import io.reactivex.Single
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 

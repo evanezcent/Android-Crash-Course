@@ -5,6 +5,7 @@ import androidx.databinding.Bindable
 import id.kotlin.sa_mastering.data.Result
 
 class HomeAdapterViewModel (res : Result): BaseObservable(){
+
     val title: String = res.title
     @Bindable get
 

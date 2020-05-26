@@ -12,33 +12,33 @@ import io.reactivex.rxkotlin.addTo
 class HomeViewModel(
     private val callback : HomeViewModelCallback,
     private val data : DataSource
-): BaseObservable(), HomeView {
+): BaseObservable() {
 
     var loadingBar: Int = View.GONE
         @Bindable get
 
-    private val disposables: CompositeDisposable = CompositeDisposable()
-
-    override fun getTheMovies() {
-        loadingBar = View.VISIBLE
-        notifyPropertyChanged(BR.loadingBar)
-
-        data.getMovie()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({res ->
-                loadingBar = View.GONE
-                notifyPropertyChanged(BR.loadingBar)
-                callback.onSuccess(res.res)
-            },{err ->
-                loadingBar = View.GONE
-                notifyPropertyChanged(BR.loadingBar)
-                callback.onFailed(err)
-            }).addTo(disposables)
-    }
-
-    override fun onDetach() {
-        disposables.clear()
-    }
-
+//    private val disposables: CompositeDisposable = CompositeDisposable()
+//
+//    override fun getTheMovies() {
+//        loadingBar = View.VISIBLE
+//        notifyPropertyChanged(BR.loadingBar)
+//
+//        data.getMovie()
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe({res ->
+//                loadingBar = View.GONE
+//                notifyPropertyChanged(BR.loadingBar)
+//                callback.onSuccess(res.res)
+//            },{err ->
+//                loadingBar = View.GONE
+//                notifyPropertyChanged(BR.loadingBar)
+//                callback.onFailed(err)
+//            }).addTo(disposables)
+//    }
+//
+//    override fun onDetach() {
+//        disposables.clear()
+//    }
+//
 
 }
